@@ -1,141 +1,98 @@
-const fs = require('fs')
-const guessWork = fs.createWriteStream('harpkitties.txt');  
+// credit to SSG Harp & PFC Bigman for logical thinking
+// why didnt i use python?? waaaaaaaaa waaaaa thats because i dont know python enjoy it
 
+const fs = require('fs') // node.js required
+const createFile = (fileName) => fs.createWriteStream(fileName);  
 
-let baseStr = "8d3c5ee69901bd9540078d37335f".toUpperCase();
-
+// todo: look for a better way to implement this there should be a more-vanilla way
 const toBin = (hex) => hex.split('').map(i => 
     parseInt(i, 16).toString(2).padStart(4, '0')).join('');
 
+// todo: learn how to generate ENTIRETY of message, including ID
+let baseStr = "8d3c5ee69901bd9540078d37335f".toUpperCase();
+
+// feels redundant/weird
 bin = toBin(baseStr);
 
-const bin_arr = (arr) => {
-    return arr.map((hex) => toBin(hex));
-}
+// hard-coded kitty-cat values thx douglas
 
-const harpKitty = [
-"8DAB5E44586505E60F9BACC21447",
-"8DAB5E42586505C60F8BACC21447",
-"8DAB5E415865058E4F89AFC21447",
-"8DAB5E405865058E4F89ACC21447",
-"8DAB5E3F5865058E4F89A8C21447",
-"8DAB5E3E5865058E4F89A0C21447",
-"8DAB5E3D5865058E4F8992C21447",
-"8DAB5E3C5865058E4F8982C21447",
-"8DAB5E3B586505864F89AFC21447",
-"8DAB5E3A586505864F89ACC21447",
-"8DAB5E39586505864F89A8C21447",
-"8DAB5E38586505864F89A0C21447",
-"8DAB5E37586505864F8992C21447",
-"8DAB5E36586505864F8982C21447",
-"8DAB5E355865058E4F89EFC21447",
-"8DAB5E345865058E5F89EFC21447",
-"8DAB5E335865058E7F8A0FC21447",
-"8DAB5E325865058EFF8A1FC21447",
-"8DAB5E315865058F1F8A3FC21447",
-"8DAB5E305865058F3F8A7FC21447",
-"8DAB5E2F5865058F3F8A83C21447",
-"8DAB5E2E5865058F1F8A8FC21447",
-"8DAB5E2D5865058EFF8A9FC21447",
-"8DAB5E2C5865058E7F8ABFC21447",
-"8DAB5E2B5865058E5F8AFFC21447",
-"8DAB5E2A5865058E4F8B0FC21447",
-"8DAB5E295865058DE98B3FC21447",
-"8DAB5E285865058D698B7FC21447",
-"8DAB5E275865058D698B81C21447",
-"8DAB5E265865058D698B87C21447",
-"8DAB5E255865058D698B8FC21447",
-"8DAB5E235865058D698B9FC21447",
-"8DAB5E215865058D698BBFC21447",
-"8DAB5E205865058D698BFFC21447",
-"8DAB5E1E5865058D698C03C21447",
-"8DAB5E1D5865058D698C0FC21447",
-"8DAB5E1C5865058D698C3FC21447",
-"8DAB5E1B5865058DE98C6FC21447",
-"8DAB5E1A5865058E4F8C9FC21447",
-"8DAB5E195865058E5F8CBFC21447",
-"8DAB5E185865058E7F8CD1C21447",
-"8DAB5E175865058EFF8CE1C21447",
-"8DAB5E165865058F1F8CF4C21447",
-"8DAB5E155865058F3F8D0DC21447",
-"8DAB5E145865058F3F8D12C21447",
-"8DAB5E135865058F1F8D26C21447",
-"8DAB5E125865058EFF8D3AC21447",
-"8DAB5E115865058E7F8D4EC21447",
-"8DAB5E105865058E5F8D62C21447",
-"8DAB5E0F5865058E4F8D76C21447",
-"8DAB5E0E5865058E4F8DE3C21447",
-"8DAB5E0D5865058E4F8DEDC21447",
-"8DAB5E0C5865058E4F8DF7C21447",
-"8DAB5E0B5865058E4F8E0BC21447",
-"8DAB5E0A5865058E4F8E1FC21447",
-"8DAB5E095865058E4F8E29C21447",
-"8DAB5E08586505864F8DE3C21447",
-"8DAB5E07586505864F8DEDC21447",
-"8DAB5E06586505864F8DF7C21447",
-"8DAB5E05586505864F8E0BC21447",
-"8DAB5E04586505864F8E1FC21447",
-"8DAB5E03586505864F8E29C21447",
-
-]
-
-let binKitties = bin_arr(harpKitty);
-
-for (i = 0; i < binKitties.length; i++){
-    subStrKitty = binKitties[i].substring(0,88);
-    binKitties[i] = `*${BigInt('0b' + `${subStrKitty}${calculateCRC(subStrKitty)}`).toString(16)};`;
-    guessWork.write(`${binKitties[i]}\n`); 
-}
-
-console.log(binKitties) // what i want to write
-
-
-
-
-// DOUGLAS' HARDCODED CAT VALUES
-
-const catArray = [
-    [33.35759, -82],
-    [33.35759, -81],
-    [33.469845, -82],
-    [33.7, -82],
-    [33.9, -82],
-    [33.469845, -81],
-    [33.7, -81],
-    [33.9, -82],
-    [34.4, -81.3],
-    [34.5, -81],
-    [34.6, -80.8],
-    [34.7, -80.6],
-    [34.8, -80.8],
-    [34.9, -81],
-    [35, -81.3],
-    [35.2, -82.1],
-    [35.5, -82.4],
-    [35.7, -82.4],
-    [35.9, -82.4],
-    [36.1, -82.4],
-    [36.3, -82.4],
-    [36.8, -81.3],
-    [36.92, -81],
-    [37, -80.8],
-    [37.1, -80.6],
-    [37.2, -80.8],
-    [37.3, -81],
-    [37.4, 81.3],
-    [38, -81],
-    [38.2, -81],
-    [38.4, -81],
-    [38.6, -81],
-    [38, -82],
-    [38.2, -82],
-    [38.4, -82],
-    [38.6, -82]
+const posCatArr = [
+    [33.35759+83, -82+83],
+    [33.35759+83, -81+83],
+    [33.469845+83, -82+83],
+    [33.7+83, -82+83],
+    [33.9+83, -82+83],
+    [33.469845+83, -81+83],
+    [33.7+83, -81+83],
+    [33.9+83, -82+83],
+    [34.4+83, -81.3+83],
+    [34.5+83, -81+83],
+    [34.6+83, -80.8+83],
+    [34.7+83, -80.6+83],
+    [34.8+83, -80.8+83],
+    [34.9+83, -81+83],
+    [35+83, -81.3+83],
+    [35.2+83, -82.1+83],
+    [35.5+83, -82.4+83],
+    [35.7+83, -82.4+83],
+    [35.9+83, -82.4+83],
+    [36.1+83, -82.4+83],
+    [36.3+83, -82.4+83],
+    [36.8+83, -81.3+83],
+    [36.92+83, -81+83],
+    [37+83, -80.8+83],
+    [37.1+83, -80.6+83],
+    [37.2+83, -80.8+83],
+    [37.3+83, -81+83],
+    [37.4+83, 81.3+83],
+    [38+83, -81+83],
+    [38.2+83, -81+83],
+    [38.4+83, -81+83],
+    [38.6+83, -81+83],
+    [38+83, -82+83],
+    [38.2+83, -82+83],
+    [38.4+83, -82+83],
+    [38.6+83, -82+83]
 ];
 
-// SSG HARP HEX VALUES
-
-
+const catArray = [
+    [-103.35759, 82],
+    [-103.35759, 81],
+    [-103.469845, 82],
+    [-103.7, 82],
+    [-103.9, 82],
+    [-103.469845, 81],
+    [-103.7, 81],
+    [-103.9, 82],
+    [-104.4, 81],
+    [-104.5, 81],
+    [-104.6, 80],
+    [-104.7, 80],
+    [-104.8, 80],
+    [-104.9, 81],
+    [-105, 81],
+    [-105.2, 82],
+    [-105.5, 82],
+    [-105.7, 82],
+    [-105.9, 82],
+    [-106.1, 82],
+    [-106.3, 82],
+    [-106.8, 81],
+    [-106.92, 81],
+    [-107, 80],
+    [-107.1, 80],
+    [-107.2, 80],
+    [-107.3, 81],
+    [-107.4, 81],
+    [-108, 81],
+    [-108.2, 81],
+    [-108.4, 81],
+    [-108.6, 81],
+    [-108, 82],
+    [-108.2, 82],
+    [-108.4, 82],
+    [-108.6, 82]
+];
 
 // SUBSTRING INDEX LOCATIONS FOR FUTURE REFERENCE, UNUSED
     
@@ -148,21 +105,68 @@ const pi = bin.substring(88,112);
 const lat = bin.substring(54,71);
 const lon = bin.substring(71,88);
 
-// BIGMAN REWORKED FORMULA TO CALCULATE CPR OF COORDINATES
+// creates binary without PI/CRC validation
+const createNewBin = (bin, lat, lon) => bin.substring(0,54) + lat + lon;
 
-const cprLat = (lat) => {
-    lat = Math.floor(Math.abs(((lat/6) - 8)*131074)).toString(2);
-    lat = lat.length < 17 ? lat.padStart(17,'0') : (lat.length > 17 ? lat = lat.slice(0,17) : lat)
-    return lat;
-};
-const cprLon = (lon) => {
-    lon = Math.floor(Math.abs(((lon/10))*131074)).toString(2);
-    lon = lon.length < 17 ? lon.padStart(17,'0') : (lon.length > 17 ? lon = lon.slice(0,17) : lon)
-    return lon;
+// generates CPR-formatted lat/long based on ads-b formula
+// https://mode-s.org/decode/content/ads-b/1-basics.html 
 
-}
+// const cprLat = (lat, odd) => {
+//     console.log(lat);
+//     console.log(Math.floor(Math.abs(((lat/6) - 8)*131074)))
+//     lat = Math.floor(Math.abs(((lat/6) - 8)*131074)).toString(2);
+//     lat = lat.length < 17 ? lat.padStart(17,'0') : (lat.length > 17 ? lat = lat.slice(0,17) : lat)
+//     return lat;
+// };
 
-// CRC CALCULATOR BASED ON MODE-S PROVIDED PSEUDOCODE
+// const cprLon = (lon, odd) => {
+//     lon = Math.floor(Math.abs(((lon/10))*131074)).toString(2);
+//     lon = lon.length < 17 ? lon.padStart(17,'0') : (lon.length > 17 ? lon = lon.slice(0,17) : lon)
+//     return lon;
+
+// }
+
+function cprLat(latitude, isOddFrame) {
+    const Nb = 17;
+    const Nz = 15;
+    const dLatEven = 360 / (4 * Nz);
+    const dLatOdd = 360 / (4 * Nz - 1);
+  
+    const dLat = isOddFrame ? dLatOdd : dLatEven;
+    const latIndex = Math.floor(latitude / dLat);
+    const cprLat = Math.floor(((latitude - latIndex * dLat) / dLat) * Math.pow(2, Nb)).toString(2);
+    console.log(`${isOddFrame} check this out hell yea: ` + Math.floor(((latitude - latIndex * dLat) / dLat) * Math.pow(2, Nb)))
+    formatLat = cprLat.length < 17 ? cprLat.padStart(17,'0') : (cprLat.length > 17 ? cprLat = cprLat.slice(0,17) : cprLat)
+
+  
+    return formatLat;
+  }
+  
+  function cprLon(longitude, latitude, isOddFrame) {
+    const Nb = 17;
+  
+    function NL(lat) {
+      const a = 1 - Math.cos((Math.PI / 180) * Math.abs(lat));
+      return Math.floor(2 * Math.PI / Math.acos(1 - a));
+    }
+  
+    const nl = NL(latitude) - isOddFrame;
+    const dLon = 360 / nl;
+    const lonIndex = Math.floor(longitude / dLon);
+    const cprLon = Math.floor(((longitude - lonIndex * dLon) / dLon) * Math.pow(2, Nb)).toString(2);
+    formatLon = cprLon.length < 17 ? cprLon.padStart(17,'0') : (cprLon.length > 17 ? cprLon = cprLon.slice(0,17) : cprLon)
+
+    return formatLon;
+  }
+  
+  
+
+
+  
+  
+
+// CRC CALCULATOR BASED ON MODE-S ORG PROVIDED PSEUDOCODE
+// https://mode-s.org/decode/content/ads-b/8-error-control.html for crc generation pseudocode & breakdown
 
 function calculateCRC(binary) {
     const generator = 0x1FFF409; 
@@ -178,20 +182,66 @@ function calculateCRC(binary) {
 //    return remainder.toString(16).toUpperCase().padStart(6, '0'); // as hex
 }
 
-
-
-const createNewBin = (lat, lon) => bin.substring(0,54) + lat + lon;
-
-
-
-const catGenerator = (catArr) => {
-    let newBins = [];
-    catArr.map((catPlotPoints, index) => {
-        newCat = createNewBin(cprLat(catPlotPoints[0]),cprLon(catPlotPoints[1]));
-        newBins = [...newBins, `*${BigInt('0b' + `${newCat}${calculateCRC(newCat)}`).toString(16)};`];
-    });
-    return newBins;
+const createMessage = (baseHex, lat, lon) => {
+    binBase = toBin(baseHex);
+    console.log("odd or even: " + binBase[54])
+    preCRC = createNewBin(binBase,cprLat(lat, binBase[54]),cprLon(lon, lat, binBase[54]))
+    return `*${BigInt('0b' + `${preCRC}${calculateCRC(preCRC)}`).toString(16)};`;
 }
 
-const catBinaries = catGenerator(catArray);
+// example array: [ [lat,lon], [lat,lon], [lat,lon], ];
+const createMessages = (baseHex, arr, file) => {
+    // newFile = createFile(`messages_${Math.floor(Math.random() * 1000)}.txt`);
+    newFile = createFile('messages_win.txt')
+    newBins = [];
+    arr.map((points, index) => {
+        newBins = [...newBins, createMessage(baseHex,points[0],points[1])];
+        file ? newFile.write(`${createMessage(baseHex,points[0],points[1])}\n`) : null;
+    });
+    return newBins; 
+}
 
+// const workingHexes = [
+//     "8da27a2d58af95dedd9ebdaa22aa",
+// ]
+
+const workingHexes = (id) => [
+    `8da${id}a2d58af95dedd9ebdaa22aa`,
+    `8da${id}a2d9914563a38045784f44d`,
+    `8da${id}a2dea428858015c08ca1771`,
+    `8da${id}a2d58af95df399eb46c8a4e`,
+    `8da${id}a2d9914563a380857ccae4d`,
+    `8da${id}a2df8230002004ab8499afe`,
+    `8da${id}a2d58af85df839eae5b9c1f`,
+    `8da${id}a2d9914563a380857ccae4d`,
+    `8da${id}a2dea428858015c08ca1771`,
+    `8da${id}a2d58af923ec929b8c5b8c9`,
+]
+
+const createStream = () => {
+    newFile = createFile('messages_win.txt')
+    for (i=0; i < workingHexes('00').length; i++){
+        for (x=0; x < catArray.length; x++){
+            if (x === 27) {
+                console.log("THIS IS WHAT I WANT PLEASE PLEASE PLEASE")
+            }
+            console.log(`current cat iteration: ${x.toString().padStart(2, "0")}, cat point: ${catArray[x]}`);
+            newFile.write(`${createMessage(workingHexes(x.toString().padStart(2, "0"))[i],catArray[x][0],catArray[x][1])}\n`)
+
+        }
+    }
+
+
+    // catArray.map((catPoint) => {
+    //     // for each cat point, change the lat/long of a working hex.
+    //     createMessage(baseHex)
+
+    // })
+
+
+};
+
+createStream();
+
+
+// console.log(createMessage("8da01a2d58af95dedd9ebdaa22aa", 23, 23));

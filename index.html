@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADS-B Lat/Lng Hex Message Generator</title>
+</head>
+
+<body>
+    <h1>ADS-B Lat/Lng Hex Message Generator for Dump1090</h1>
+    <form>
+        <label for="name">Base Message (in hex format, full ADS-B message):</label><br>
+        <input type="text" id="name" name="name" size="10" placeholder="8d3c5ee69901bd9540078d37335f" /><br>
+        <label for="name">Latitude:</label><br>
+        <input type="number" id="lat" name="latitude" size="10" /><br>
+        <label for="name">Longitude:</label><br>
+        <input type="number" id="lon" name="longitude" size="10" /><br>
+        <label for="name">Create File:</label><br>
+        <input type="checkbox"
+        name="check"
+        id="create"
+        value="2">
+ Not checked by default<br>
+    </form>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
